@@ -1,0 +1,24 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Site check</title>
+<style>body{font:16px/1.5 system-ui;max-width:42rem;margin:2rem auto;padding:0 1rem;background:#0d1a3a;color:#f7e8d2}li{margin:.3rem 0}.ok{color:#8fe08a}.bad{color:#ff8a6b;font-weight:700}code{background:#0006;padding:0 .3rem}</style>
+<h1>Site check</h1><p>This page tests your copy of the site. Send me a screenshot of it if anything is red.</p><ul id="out"></ul>
+<script>
+const out=document.getElementById('out');
+const row=(ok,t)=>{const l=document.createElement('li');l.className=ok?'ok':'bad';l.textContent=(ok?'✓ ':'✗ ')+t;out.appendChild(l)};
+row(location.protocol!=='file:','Opened from a web server: '+location.origin+(location.protocol==='file:'?'  (you opened the file directly; 3D and the new pages will NOT work this way. Run  python3 -m http.server 8000  in the folder and open http://localhost:8000/check.html)':''));
+const c=document.createElement('canvas');row(!!(c.getContext('webgl2')||c.getContext('webgl')),'WebGL available in this browser');
+row(HTMLScriptElement.supports&&HTMLScriptElement.supports('importmap'),'Browser supports import maps (needed by the AR pages)');
+(async()=>{
+ for(const f of ['index.html','style.css','main.js','site-data.js','piece.js','piece.css','piece-01.html','lib/ob-core.js','lib/r164/three.module.js','models/hero.glb','ar/ar-01.glb']){
+  try{const r=await fetch(f+'?nocache='+Date.now(),{cache:'no-store'});const b=await r.arrayBuffer();row(r.ok&&b.byteLength>0,f+'  ('+r.status+', '+b.byteLength+' bytes)'+(r.ok&&b.byteLength===0?' EMPTY':''));
+   if(f==='style.css'&&r.ok){const t=new TextDecoder().decode(b);row(t.includes('build: sunset10')&&t.includes('--navy'),'style.css is the new burnt-orange/navy version')}
+   if(f==='main.js'&&r.ok){const t=new TextDecoder().decode(b);row(t.includes('BRUSH_PATH')&&t.includes('piece-'),'main.js is the latest version')}}
+  catch(e){row(false,f+'  could not be fetched')}}
+ try{const r=await fetch('index.html',{cache:'default'});const t=await r.text();row(t.includes('style.css?v=sunset10'),'index.html is the latest version (links style.css?v=sunset10)')}catch(e){}
+
+ try{const man=await (await fetch('brushes/manifest.json',{cache:'no-store'})).json();
+  const miss=[];await Promise.all(man.map(async f=>{try{const r=await fetch('brushes/'+f,{method:'HEAD',cache:'no-store'});if(!r.ok)miss.push(f)}catch(e){miss.push(f)}}));
+  row(miss.length===0,'Brush files: '+(man.length-miss.length)+' of '+man.length+' found'+(miss.length?'. MISSING (upload these into the brushes folder): '+miss.slice(0,12).join(', ')+(miss.length>12?' ...':''):''));
+ }catch(e){row(false,'brushes/manifest.json could not be read (is the brushes folder uploaded?)')}
+})();
+</script>

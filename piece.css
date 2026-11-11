@@ -1,0 +1,35 @@
+:root{--navy:#0d1a3a;--orange:#d9531e;--cream:#f7e8d2;--gold:#f5a43a;--chip:rgba(13,26,58,.82);--line:rgba(247,232,210,.28);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:100%;margin:0;overflow:hidden}
+body{color:var(--cream);font:15px/1.3 "Karla",system-ui,sans-serif;
+  background:radial-gradient(70% 38% at 50% 100%,rgba(245,164,58,.75),transparent),
+  linear-gradient(180deg,#0d1a3a 0%,#26295c 26%,#8f3a3a 55%,#d9531e 80%,#f5a43a 100%)}
+body.clear{background:transparent}
+#cam,canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+#cam{object-fit:cover;z-index:0;display:none}
+canvas{z-index:1;touch-action:none}
+#top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.6rem .9rem;pointer-events:none}
+#top>*{pointer-events:auto}
+.back,#top nav a{background:var(--chip);color:var(--cream);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:.5rem 1rem;backdrop-filter:blur(8px);font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:.75rem;white-space:nowrap}
+#top nav{display:flex;gap:.4rem}#top nav a{font-size:1.2rem;padding:.2rem .9rem;letter-spacing:0}
+.back:hover,#top nav a:hover{background:var(--gold);color:var(--navy)}
+.ti{text-align:center;min-width:0;display:flex;flex-direction:column;text-shadow:0 1px 10px #000a}
+.ti b{font:800 clamp(1.1rem,4vw,1.9rem)/1 "Bricolage Grotesque","Arial Black",sans-serif;text-transform:uppercase;letter-spacing:-.03em}
+.ti span{font-size:.85rem;opacity:.85;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#ui{position:fixed;left:0;right:0;bottom:0;z-index:2;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px))}
+button{background:var(--chip);color:var(--cream);border:1px solid var(--line);border-radius:999px;padding:10px 16px;font:600 .8rem "Karla",system-ui,sans-serif;text-transform:uppercase;letter-spacing:.1em;backdrop-filter:blur(8px);cursor:pointer}
+button[aria-pressed="true"]{background:var(--orange);border-color:var(--orange)}
+button:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+#bAR{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+#msg{position:fixed;top:calc(4.2rem + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:2;background:var(--chip);border:1px solid var(--line);border-radius:12px;padding:8px 14px;max-width:90%;text-align:center}
+body.hideui #ui,body.hideui #top{display:none}
+#xrhint{display:none;position:fixed;top:24px;left:0;right:0;text-align:center;pointer-events:none;color:#fff;text-shadow:0 1px 4px #000;font-size:16px}
+body.xr #xrhint{display:block}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+#viewout{position:fixed;top:calc(4.6rem + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:4;max-width:94%;background:var(--chip);color:var(--cream);border:1px solid var(--gold);border-radius:12px;padding:6px 12px;font:12px/1.3 monospace;text-transform:none;letter-spacing:0;white-space:normal;word-break:break-word}
+#occRow{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(8.4rem + env(safe-area-inset-bottom,0px));z-index:2;width:min(92%,26rem);background:var(--chip);border:1px solid var(--line);border-radius:16px;padding:10px 14px;text-align:center;backdrop-filter:blur(8px)}
+#occRow[hidden]{display:none}
+#occRow p{margin:0 0 8px;font-size:.8rem;opacity:.9}
+#occRow div{display:flex;gap:10px;align-items:center}
+#occRow input{flex:1;accent-color:var(--gold)}
+body.hideui #occRow{display:none}
