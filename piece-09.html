@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Augmented reality piece</title>
+<script type="importmap">{"imports":{"three":"./lib/r164/three.module.js","three/addons/":"./lib/r164/addons/"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Karla:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="piece.css?v=sunset11">
+</head>
+<body data-piece="9">
+<video id="cam" playsinline muted autoplay></video>
+<header id="top">
+  <a class="back" href="index.html#xr">&larr; <span id="who"></span></a>
+  <div class="ti"><b id="pt"></b><span id="pn"></span></div>
+  <nav><a id="prev" aria-label="Previous piece">&lsaquo;</a><a id="next" aria-label="Next piece">&rsaquo;</a></nav>
+</header>
+<div id="xrhint">Point at a wall and tap to hang the artwork</div>
+<div id="msg">Loading sketch…</div>
+<div id="ui">
+  <button id="bCam" aria-pressed="false">Camera</button>
+  <button id="bWall" aria-pressed="true">Fixed</button>
+  <button id="bSpin" aria-pressed="false">Auto-rotate</button>
+  <button id="bShot" type="button">Capture</button>
+  <button id="bAR" hidden>Enter AR</button>
+</div>
+<script type="module" src="piece.js?v=sunset11"></script>
+</body>
+</html>
